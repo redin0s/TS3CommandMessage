@@ -31,15 +31,11 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-      
-    - name: Retrieve file
-      shell: pwsh
-      run: |
-        "LIBFILEPATH=$((Get-ChildItem ${{github.workspace}}/build/lib*).FullName)" >> $env:GITHUB_ENV
-      
+        
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
-        path: ${{ env.LIBFILEPATH }}
+        shell: bash
+        path: ${{github.workspace}}/build/lib*
         name: build-${{ runner.os }}
 
