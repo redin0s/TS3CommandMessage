@@ -35,7 +35,7 @@ jobs:
     - name: Retrieve file
       shell: pwsh
       run: |
-        Write-Output "LIBFILEPATH=$((Get-ChildItem build/lib*).FullName)" >> $GITHUB_ENV
+        $GITHUB_ENV += "`nLIBFILEPATH=$((Get-ChildItem build/lib*).FullName)"
       
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
