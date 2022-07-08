@@ -33,11 +33,13 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
       
     - name: Retrieve file
-      run: Write-Output "LIBFILEPATH=$((Get-ChildItem build/lib*).FullName)" >> $GITHUB_ENV
+      shell: pwsh
+      run: |
+        Write-Output "LIBFILEPATH=$((Get-ChildItem build/lib*).FullName)" >> $GITHUB_ENV
       
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
         path: ${{ ENV.LIBFILEPATH }}
         name: build-${{ runner.os }}
-        shell: pwsh
+
