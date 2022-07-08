@@ -35,7 +35,7 @@ jobs:
     - name: Find file
       shell: bash
       run: |
-        echo "LIBFILEPATH=$(find . -iname lib* | head -n 1)" >> $GITHUB_ENV
+        echo "LIBFILEPATH=$(find . -iname lib*.so -or -iname lib*.dll | head -n 1)" >> $GITHUB_ENV
         
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
