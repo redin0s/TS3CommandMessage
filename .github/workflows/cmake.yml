@@ -32,10 +32,14 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
         
+    - name: Find file
+      shell: bash
+      run: |
+        echo "LIBFILEPATH=$(find . -iname lib* | head -n 1)" >> $GITHUB_ENV
+        
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
-        shell: bash
-        path: ${{github.workspace}}/build/lib*
+        path: ${{ env.LIBFILEPATH }}
         name: build-${{ runner.os }}
 
